@@ -3,7 +3,7 @@ using System;
 
 namespace CreditApplication.ConsoleApp
 {
-    class Program
+    static class Program
     {
         static void Main(string[] _)
         {
@@ -11,7 +11,7 @@ namespace CreditApplication.ConsoleApp
 
             var credit = conditions.GetCredit();
 
-            Console.WriteLine($"{credit.Amount} , {credit.Interest}, {credit.IsAproved}");
+            Console.WriteLine($"{credit.Amount} , {credit.Interest}, {credit.Aproved}");
         }
     }
 }

@@ -4,6 +4,6 @@
     {
          decimal Amount { get; }
          decimal Interest { get;  }
-         bool IsAproved { get;  }
+         bool Aproved { get;  }
     }
 }

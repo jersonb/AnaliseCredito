@@ -1,5 +1,4 @@
 ﻿using CreditApplication.Domain.Property;
-using System;
 
 namespace CreditApplication.Domain.Credits
 {
@@ -11,7 +10,7 @@ namespace CreditApplication.Domain.Credits
         {
             base.Validate();
             if (Proposal.RequestedAmount.Value <= REQUEST_MIN)
-                throw new ArgumentException($"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
+                AddNotification($"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
         }
     }
 }
