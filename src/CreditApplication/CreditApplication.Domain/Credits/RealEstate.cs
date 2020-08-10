@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Credits
 {
-    public class RealEstate : CreditBase
+    public sealed class RealEstate : CreditBase
     {
         private const RateTax RATE_TAX = RateTax.Year;
 
