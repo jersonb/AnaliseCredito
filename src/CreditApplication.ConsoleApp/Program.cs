@@ -23,6 +23,20 @@ namespace CreditApplication.ConsoleApp
                     RequestedAmount = 13_000,
                     Portion = 10,
                     FirstPayment = new DateTime(2020, 09, 10)
+                }, 
+                new Conditions
+                {
+                    CreditType = CreditType.Direct,
+                    RequestedAmount = 10_000,
+                    Portion = 10,
+                    FirstPayment = new DateTime(2020, 09, 10)
+                },  
+                new Conditions
+                {
+                    CreditType = CreditType.Direct,
+                    RequestedAmount = 0,
+                    Portion = 4,
+                    FirstPayment =  DateTime.Now
                 },
 
             };
@@ -38,6 +52,7 @@ namespace CreditApplication.ConsoleApp
                 {
                     Console.WriteLine(notification);
                 });
+                Console.WriteLine("\n");
 
             });
         }
