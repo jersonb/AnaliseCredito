@@ -10,7 +10,7 @@ namespace CreditApplication.Domain.Property
         private FirstPayment(DateTime value)
         {
             Value = value;
-            IsValid = Value > DateTime.Now.AddDays(QUANTITY_DAYS_MIN) || Value < DateTime.Now.AddDays(QUANTITY_DAYS_MAX);
+            IsValid = Value.Date >= DateTime.Now.AddDays(QUANTITY_DAYS_MIN).Date && Value.Date <= DateTime.Now.AddDays(QUANTITY_DAYS_MAX).Date;
         }
 
         public static implicit operator FirstPayment(DateTime value)

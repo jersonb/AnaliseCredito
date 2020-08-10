@@ -4,7 +4,7 @@
     {
         private Tax(decimal value)
         {
-            Value = value;
+            Value = 1 + value;
             IsValid = Value > 0;
         }
 

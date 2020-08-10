@@ -8,7 +8,7 @@
         private RequestedAmount(decimal value)
         {
             Value = value;
-            IsValid = Value < REQUEST_MAX && Value > REQUEST_MIN;
+            IsValid = Value <= REQUEST_MAX && Value >= REQUEST_MIN;
         }
 
         public static implicit operator RequestedAmount(decimal value)

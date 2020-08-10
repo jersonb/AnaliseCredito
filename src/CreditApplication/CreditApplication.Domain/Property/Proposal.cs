@@ -4,7 +4,7 @@ namespace CreditApplication.Domain.Property
 {
     public struct Proposal
     {
-        private Proposal( RequestedAmount requestedAmount, Portion portion, FirstPayment firstPayment)
+        private Proposal(RequestedAmount requestedAmount, Portion portion, FirstPayment firstPayment)
         {
             RequestedAmount = requestedAmount;
             Portion = portion;
