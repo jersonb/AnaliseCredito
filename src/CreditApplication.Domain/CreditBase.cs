@@ -41,8 +41,8 @@ namespace CreditApplication.Domain
         {
             Interest = rateTax switch
             {
-                RateTax.Year => Tax.Value * (Proposal.Portion.Value / 12),//verificar regra
-                _ => Tax.Value * Proposal.Portion.Value
+                RateTax.Year => Proposal.RequestedAmount.Value * Tax.Value * (Proposal.Portion.Value / 12),//verificar regra
+                _ => Proposal.RequestedAmount.Value * Tax.Value * Proposal.Portion.Value
             };
         }
 
