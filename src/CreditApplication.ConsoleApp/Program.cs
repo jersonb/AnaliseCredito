@@ -10,11 +10,13 @@ namespace CreditApplication.ConsoleApp
     {
         private static void Main(string[] _)
         {
+            var date = DateTime.Now.AddDays(30);
+
             var conditions = new List<ICondition>
             {
-                new BusinessRequest(15_000, 10, new DateTime(2020, 09, 10)),
-                new BusinessRequest(13_000, 10, new DateTime(2020, 09, 10)),
-                new DirectRequest(10_000, 10, new DateTime(2020, 09, 10)),
+                new BusinessRequest(15_000, 10, date),
+                new BusinessRequest(13_000, 10, date),
+                new DirectRequest(10_000, 10, date),
                 new DirectRequest(0, 4, DateTime.Now),
             };
 
@@ -24,10 +26,9 @@ namespace CreditApplication.ConsoleApp
                 Console.WriteLine("Situação: {0}", credit.Aproved ? "Aprovado" : "Reprovado");
                 Console.WriteLine($"Total a pagar: {credit.Amount:C2}, Total dos Juros: {credit.Interest}");
                 Console.WriteLine("Notificações");
-                credit.Notifications.ForEach(notification =>
-                {
-                    Console.WriteLine(notification);
-                });
+
+                credit.Notifications.ForEach(notification => Console.WriteLine(notification));
+
                 Console.WriteLine("\n");
             });
         }
