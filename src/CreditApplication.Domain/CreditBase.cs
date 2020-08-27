@@ -6,7 +6,7 @@ namespace CreditApplication.Domain
 {
     public abstract class CreditBase : ICredit
     {
-        private const RateTax RATE_TAX_DEFALT = RateTax.Month;
+        private const RateTax RATE_TAX_DEFAULT = RateTax.Month;
 
         protected abstract Tax Tax { get; }
 
@@ -28,7 +28,7 @@ namespace CreditApplication.Domain
             };
 
             credit.Validate();
-            credit.SetInterest(RATE_TAX_DEFALT);
+            credit.SetInterest(RATE_TAX_DEFAULT);
             credit.SetAmount();
 
             return credit;

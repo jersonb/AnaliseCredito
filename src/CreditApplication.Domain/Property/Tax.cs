@@ -12,6 +12,6 @@
             => new Tax(value);
 
         public decimal Value { get; }
-        public bool IsValid { get; set; }
+        public bool IsValid { get; }
     }
 }
