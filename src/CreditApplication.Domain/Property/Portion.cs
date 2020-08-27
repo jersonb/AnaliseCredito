@@ -10,10 +10,11 @@
             Value = value;
             IsValid = Value <= PORTION_MAX && Value >= PORTION_MIN;
         }
+
         public static implicit operator Portion(int value)
             => new Portion(value);
+
         public int Value { get; }
         public bool IsValid { get; }
-
     }
 }

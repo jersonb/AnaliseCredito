@@ -6,7 +6,7 @@ namespace CreditApplication.Domain.Property
     {
         private const int QUANTITY_DAYS_MIN = 15;
         private const int QUANTITY_DAYS_MAX = 40;
-       
+
         private FirstPayment(DateTime value)
         {
             Value = value;

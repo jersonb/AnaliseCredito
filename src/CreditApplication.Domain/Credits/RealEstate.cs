@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Credits
 {
-    public sealed class RealEstate : CreditBase
+    public sealed class RealEstate : Credit
     {
         private const RateTax RATE_TAX = RateTax.Year;
 
@@ -10,6 +10,5 @@ namespace CreditApplication.Domain.Credits
 
         protected override void SetInterest(RateTax rateTax)
             => base.SetInterest(RATE_TAX);
-
     }
 }
