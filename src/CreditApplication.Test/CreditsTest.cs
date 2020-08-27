@@ -1,6 +1,5 @@
 using CreditApplication.Domain;
-using CreditApplication.Domain.Credits;
-using CreditApplication.Domain.Property;
+using CreditApplication.Test.Conditions;
 using System;
 using Xunit;
 
@@ -8,7 +7,6 @@ namespace CreditApplication.Test
 {
     public class CreditsTest
     {
-
         [Theory]
         [InlineData(1, 5, 15)]
         [InlineData(1_000_000, 72, 40)]
@@ -20,7 +18,8 @@ namespace CreditApplication.Test
         [InlineData(1_000, 10, 41, "A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)")]
         public void DirectIsValidTest(decimal requestAmount, int portion, int quantityDays, string message = null)
         {
-            var direct = CreditBase.GetInstance<Direct>(Proposal.GetProposal(requestAmount, portion, DateTime.Now.AddDays(quantityDays)));
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), CreditType.Direct);
+            var direct = condition.GetCredit();
 
             if (direct.Aproved)
             {
@@ -44,8 +43,8 @@ namespace CreditApplication.Test
         [InlineData(20_000, 10, 41, "A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)")]
         public void BusinessIsValidTest(decimal requestAmount, int portion, int quantityDays, string message = null)
         {
-            var business = CreditBase.GetInstance<Business>(Proposal.GetProposal(requestAmount, portion, DateTime.Now.AddDays(quantityDays)));
-
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), CreditType.Business);
+            var business = condition.GetCredit();
             if (business.Aproved)
             {
                 Assert.True(requestAmount < business.Amount);
@@ -57,13 +56,13 @@ namespace CreditApplication.Test
             }
         }
 
-
         [Theory]
-        [InlineData(15_000)]
-        public void RealEstateIsValidTest(decimal requestAmount)
+        [InlineData(15_000, 72)]
+        public void RealEstateIsValidTest(decimal requestAmount, int portion)
         {
-            var payroll = CreditBase.GetInstance<Payroll>(Proposal.GetProposal(requestAmount, 72, DateTime.Now.AddDays(15)));
-            var realEstate = CreditBase.GetInstance<RealEstate>(Proposal.GetProposal(requestAmount, 72, DateTime.Now.AddDays(15)));
+            var date = DateTime.Now.AddDays(15);
+            var payroll = new Condition(requestAmount, portion, date, CreditType.Payroll).GetCredit();
+            var realEstate = new Condition(requestAmount, portion, date, CreditType.RealEstate).GetCredit();
             Assert.True(payroll.Amount > realEstate.Amount);
         }
     }

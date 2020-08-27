@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Credits
 {
-    public sealed class Direct : CreditBase
+    internal sealed class Direct : Credit
     {
         protected override Tax Tax => 0.02M;
     }

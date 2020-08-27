@@ -1,49 +1,25 @@
-﻿using CreditApplication.Domain;
+﻿using CreditApplication.ConsoleApp.Conditions;
+using CreditApplication.Domain;
+using CreditApplication.Domain.Contracts;
 using System;
 using System.Collections.Generic;
 
 namespace CreditApplication.ConsoleApp
 {
-    static class Program
+    internal static class Program
     {
-        static void Main(string[] _)
+        private static void Main(string[] _)
         {
-            var conditions = new List<Conditions>
+            var conditions = new List<ICondition>
             {
-                new Conditions
-                {
-                    CreditType = CreditType.Business,
-                    RequestedAmount = 15_000,
-                    Portion = 10,
-                    FirstPayment = new DateTime(2020, 09, 10)
-                },
-                new Conditions
-                {
-                    CreditType = CreditType.Business,
-                    RequestedAmount = 13_000,
-                    Portion = 10,
-                    FirstPayment = new DateTime(2020, 09, 10)
-                }, 
-                new Conditions
-                {
-                    CreditType = CreditType.Direct,
-                    RequestedAmount = 10_000,
-                    Portion = 10,
-                    FirstPayment = new DateTime(2020, 09, 10)
-                },  
-                new Conditions
-                {
-                    CreditType = CreditType.Direct,
-                    RequestedAmount = 0,
-                    Portion = 4,
-                    FirstPayment =  DateTime.Now
-                },
-
+                new BusinessRequest(15_000, 10, new DateTime(2020, 09, 10)),
+                new BusinessRequest(13_000, 10, new DateTime(2020, 09, 10)),
+                new DirectRequest(10_000, 10, new DateTime(2020, 09, 10)),
+                new DirectRequest(0, 4, DateTime.Now),
             };
 
             conditions.ForEach(condition =>
             {
-
                 var credit = condition.GetCredit();
                 Console.WriteLine("Situação: {0}", credit.Aproved ? "Aprovado" : "Reprovado");
                 Console.WriteLine($"Total a pagar: {credit.Amount:C2}, Total dos Juros: {credit.Interest}");
@@ -53,7 +29,6 @@ namespace CreditApplication.ConsoleApp
                     Console.WriteLine(notification);
                 });
                 Console.WriteLine("\n");
-
             });
         }
     }

@@ -6,7 +6,7 @@
         Year
     }
 
-    public enum CreditType 
+    public enum CreditType
     {
         Direct,
         Business,

@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Property
 {
-    public struct Proposal
+    internal struct Proposal
     {
         private Proposal(RequestedAmount requestedAmount, Portion portion, FirstPayment firstPayment)
         {
@@ -11,8 +11,8 @@ namespace CreditApplication.Domain.Property
             FirstPayment = firstPayment;
         }
 
-        public static Proposal GetProposal(decimal requestedAmount, int portion, DateTime firstPayment)
-            => new Proposal( requestedAmount,  portion, firstPayment);
+        internal static Proposal GetProposal(decimal requestedAmount, int portion, DateTime firstPayment)
+            => new Proposal(requestedAmount, portion, firstPayment);
 
         public RequestedAmount RequestedAmount { get; }
         public Portion Portion { get; }
