@@ -1,6 +1,6 @@
 ﻿namespace CreditApplication.Domain.Property
 {
-    public struct RequestedAmount
+    internal struct RequestedAmount
     {
         private const int REQUEST_MAX = 1_000_000;
         private const int REQUEST_MIN = 1;

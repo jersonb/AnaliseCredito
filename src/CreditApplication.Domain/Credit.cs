@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace CreditApplication.Domain
 {
-    public abstract class Credit : ICredit
+    internal abstract class Credit : ICredit
     {
         private const RateTax RATE_TAX_DEFAULT = RateTax.Month;
 
@@ -21,7 +21,7 @@ namespace CreditApplication.Domain
 
         public List<string> Notifications { get; private set; }
 
-        public static T GetInstance<T>(Proposal proposal) where T : Credit, new()
+        internal static T GetInstance<T>(Proposal proposal) where T : Credit, new()
         {
             var credit = new T
             {

@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Credits
 {
-    public sealed class Personal : Credit
+    internal sealed class Personal : Credit
     {
         protected override Tax Tax => 0.03M;
     }

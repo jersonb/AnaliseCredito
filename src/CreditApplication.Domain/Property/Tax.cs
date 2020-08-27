@@ -1,6 +1,6 @@
 ﻿namespace CreditApplication.Domain.Property
 {
-    public struct Tax
+    internal struct Tax
     {
         private Tax(decimal value)
         {

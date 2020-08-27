@@ -1,6 +1,6 @@
 ﻿namespace CreditApplication.Domain.Property
 {
-    public struct Portion
+    internal struct Portion
     {
         private const int PORTION_MAX = 72;
         private const int PORTION_MIN = 5;

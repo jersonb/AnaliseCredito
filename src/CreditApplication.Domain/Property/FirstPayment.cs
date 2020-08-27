@@ -2,7 +2,7 @@
 
 namespace CreditApplication.Domain.Property
 {
-    public struct FirstPayment
+    internal struct FirstPayment
     {
         private const int QUANTITY_DAYS_MIN = 15;
         private const int QUANTITY_DAYS_MAX = 40;
