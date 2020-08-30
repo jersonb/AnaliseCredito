@@ -1,7 +1,7 @@
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,aspnetcore,csharp,dotnetcore,linux,macos,visualstudio
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,aspnetcore,csharp,dotnetcore,linux,macos,visualstudio
+# Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,visualstudio,macos,linux,dotnetcore,csharp,aspnetcore
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,visualstudio,macos,linux,dotnetcore,csharp,aspnetcore
 
 ### ASPNETCore ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -541,6 +541,12 @@ Temporary Items
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+src/.vscode/*
+!src/.vscode/settings.json
+!src/.vscode/tasks.json
+!src/.vscode/launch.json
+!src/.vscode/extensions.json
+src/*.code-workspace
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -730,7 +736,7 @@ $RECYCLE.BIN/
 
 # Ionide (cross platform F# VS Code tools) working folder
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,aspnetcore,csharp,dotnetcore,linux,macos,visualstudio
+# End of https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,visualstudio,macos,linux,dotnetcore,csharp,aspnetcore
 
 # Custom rules (everything added below won't be overriden by 'Generate .gitignore File' if you use 'Update' option)
 
