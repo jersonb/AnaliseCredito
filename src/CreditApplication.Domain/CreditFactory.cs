@@ -6,19 +6,18 @@ namespace CreditApplication.Domain
 {
     public static class CreditFactory
     {
-        public static ICredit GetCredit(this ICondition conditions)
+        public static ICredit GetCredit(this IProposal conditions)
+        => conditions.CreditType switch
         {
-            var proposal = Proposal.GetProposal(conditions.RequestedAmount, conditions.Portion, conditions.FirstPayment);
+            CreditType.Direct => conditions.GetCredit<Direct>(),
+            CreditType.Business => conditions.GetCredit<Business>(),
+            CreditType.Payroll => conditions.GetCredit<Payroll>(),
+            CreditType.Personal => conditions.GetCredit<Personal>(),
+            CreditType.RealEstate => conditions.GetCredit<RealEstate>(),
+            _ => null
+        };
 
-            return conditions.CreditType switch
-            {
-                CreditType.Direct => Credit.GetInstance<Direct>(proposal),
-                CreditType.Business => Credit.GetInstance<Business>(proposal),
-                CreditType.Payroll => Credit.GetInstance<Payroll>(proposal),
-                CreditType.Personal => Credit.GetInstance<Personal>(proposal),
-                CreditType.RealEstate => Credit.GetInstance<RealEstate>(proposal),
-                _ => null
-            };
-        }
+        private static ICredit GetCredit<T>(this IProposal condition) where T : Credit, new()
+            => Credit.GetInstance<T>(Proposal.GetProposal(condition));
     }
 }

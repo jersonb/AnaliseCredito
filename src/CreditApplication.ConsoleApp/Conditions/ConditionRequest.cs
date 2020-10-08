@@ -4,7 +4,7 @@ using System;
 
 namespace CreditApplication.ConsoleApp.Conditions
 {
-    public abstract class ConditionRequest : ICondition
+    public abstract class ConditionRequest : IProposal
     {
         protected ConditionRequest(decimal requestedAmount, int portion, DateTime firstPayment)
         {
@@ -12,7 +12,7 @@ namespace CreditApplication.ConsoleApp.Conditions
             Portion = portion;
             FirstPayment = firstPayment;
         }
-       
+
         public decimal RequestedAmount { get; }
 
         public int Portion { get; }

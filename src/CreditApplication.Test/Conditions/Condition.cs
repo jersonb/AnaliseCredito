@@ -4,7 +4,7 @@ using System;
 
 namespace CreditApplication.Test.Conditions
 {
-    public class Condition : ICondition
+    public class Condition : IProposal
     {
         public Condition(decimal requestedAmount, int portion, DateTime firstPayment, CreditType creditType)
         {

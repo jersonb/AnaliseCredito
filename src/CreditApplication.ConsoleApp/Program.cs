@@ -12,7 +12,7 @@ namespace CreditApplication.ConsoleApp
         {
             var date = DateTime.Now.AddDays(30);
 
-            var conditions = new List<ICondition>
+            var conditions = new List<IProposal>
             {
                 new BusinessRequest(15_000, 10, date),
                 new BusinessRequest(13_000, 10, date),
