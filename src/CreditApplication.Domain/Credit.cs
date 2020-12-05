@@ -1,11 +1,12 @@
 ﻿using CreditApplication.Domain.Contracts;
 using CreditApplication.Domain.Property;
+using Flunt.Notifications;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CreditApplication.Domain
 {
-    internal abstract class Credit : ICredit
+    internal abstract class Credit : Notifiable, ICredit
     {
         private const RateTax RATE_TAX_DEFAULT = RateTax.Month;
 
@@ -47,24 +48,28 @@ namespace CreditApplication.Domain
             };
         }
 
-        protected void AddNotification(string message)
-          => Notifications.Add(message);
+        protected void AddNotification(Notification notification)
+          => Notifications.Add(notification.Message);
 
         protected virtual void Validate()
         {
             Notifications = new List<string>();
 
-            if (!Proposal.RequestedAmount.IsValid)
-                AddNotification("Valor solicitado não pode ser maior que R$ 1.000.000,00 nem menor que R$ 1");
+            if (Proposal.RequestedAmount.Contract.Invalid)
+                foreach (var notification in Proposal.RequestedAmount.Contract.Notifications)
+                    AddNotification(notification);
 
-            if (!Proposal.Portion.IsValid)
-                AddNotification("A quantidade de parcelas máximas é de 72x e a mínima é de 5x");
+            if (Proposal.Portion.Contract.Invalid)
+                foreach (var notification in Proposal.Portion.Contract.Notifications)
+                    AddNotification(notification);
 
-            if (!Proposal.FirstPayment.IsValid)
-                AddNotification("A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)");
+            if (Proposal.FirstPayment.Contract.Invalid)
+                foreach(var notification in Proposal.FirstPayment.Contract.Notifications)
+                AddNotification(notification);
 
-            if (!Tax.IsValid)
-                AddNotification("Taxa Inválida");
+            if (Tax.Contract.Invalid)
+                foreach (var notification in Tax.Contract.Notifications)
+                    AddNotification(notification);
         }
     }
 }

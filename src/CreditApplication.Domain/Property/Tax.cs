@@ -1,17 +1,21 @@
-﻿namespace CreditApplication.Domain.Property
+﻿using CreditApplication.Domain.Contracts;
+using Flunt.Validations;
+
+namespace CreditApplication.Domain.Property
 {
-    internal struct Tax
+    internal struct Tax : IProperty<decimal>
     {
+        private readonly static string _message = "Taxa Inválida";
         private Tax(decimal value)
         {
+            Contract = new Contract().IsGreaterThan(value, 0, nameof(Tax), _message);
             Value = value;
-            IsValid = Value > 0;
         }
 
         public static implicit operator Tax(decimal value)
             => new Tax(value);
 
         public decimal Value { get; }
-        public bool IsValid { get; }
+        public Contract Contract { get; }
     }
 }

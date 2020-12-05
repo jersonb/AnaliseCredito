@@ -1,4 +1,5 @@
 ﻿using CreditApplication.Domain.Property;
+using Flunt.Validations;
 
 namespace CreditApplication.Domain.Credits
 {
@@ -10,8 +11,16 @@ namespace CreditApplication.Domain.Credits
         protected override void Validate()
         {
             base.Validate();
-            if (Proposal.RequestedAmount.Value < REQUEST_MIN)
-                AddNotification($"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
+            
+            var contract = new Contract()
+                            .IsGreaterOrEqualsThan(Proposal.RequestedAmount.Value 
+                            , REQUEST_MIN
+                            , nameof(Business)
+                            , $"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
+            // var notification = new Notification(nameof(Business),$"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
+            if (contract.Invalid)
+                foreach(var notification in contract.Notifications)
+                    AddNotification(notification);
         }
     }
 }
