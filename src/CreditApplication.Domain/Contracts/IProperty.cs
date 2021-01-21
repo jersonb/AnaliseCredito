@@ -2,9 +2,9 @@ using Flunt.Validations;
 
 namespace CreditApplication.Domain.Contracts
 {
-    public interface IProperty<T>
+    public interface IProperty<out T>
     {
-         T Value { get; }
-         Contract Contract { get; }
+        T Value { get; }
+        Contract Contract { get; }
     }
 }

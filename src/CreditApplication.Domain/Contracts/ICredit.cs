@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
 namespace CreditApplication.Domain.Contracts
-
 {
     public interface ICredit
     {

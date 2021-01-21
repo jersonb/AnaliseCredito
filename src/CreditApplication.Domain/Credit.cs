@@ -48,8 +48,8 @@ namespace CreditApplication.Domain
             };
         }
 
-        protected void AddNotification(Notification notification)
-          => Notifications.Add(notification.Message);
+        //protected void AddNotification(Notification notification)
+        //  => Notifications.Add(notification.Message);
 
         protected virtual void Validate()
         {
@@ -65,7 +65,7 @@ namespace CreditApplication.Domain
 
             if (Proposal.FirstPayment.Contract.Invalid)
                 foreach(var notification in Proposal.FirstPayment.Contract.Notifications)
-                AddNotification(notification);
+                    AddNotification(notification);
 
             if (Tax.Contract.Invalid)
                 foreach (var notification in Tax.Contract.Notifications)

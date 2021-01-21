@@ -17,7 +17,7 @@ namespace CreditApplication.Domain.Credits
                             , REQUEST_MIN
                             , nameof(Business)
                             , $"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
-            // var notification = new Notification(nameof(Business),$"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
+         
             if (contract.Invalid)
                 foreach(var notification in contract.Notifications)
                     AddNotification(notification);
