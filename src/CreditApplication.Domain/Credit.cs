@@ -24,14 +24,7 @@ namespace CreditApplication.Domain
 
         internal static ICredit GetInstance(Proposal proposal)
         {
-            var type = typeof(Credit).Assembly
-                                    .GetTypes()
-                                    .FirstOrDefault(t => t.IsSubclassOf(typeof(Credit))
-                                                            && t.IsNotPublic
-                                                            && !t.IsAbstract
-                                                            && proposal.CreditType.ToString().Equals(t.Name));
-
-            var credit = (Credit)Activator.CreateInstance(type);
+            var credit = CreditFacade.GetCredit(proposal.CreditType);
 
             credit.Proposal = proposal;
             credit.Validate();

@@ -12,6 +12,7 @@
         Business = 2,
         Payroll = 3,
         Personal = 4,
-        RealEstate = 5
+        RealEstate = 5,
+        Erro =9999
     }
 }

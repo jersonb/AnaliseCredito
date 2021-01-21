@@ -9,6 +9,7 @@ namespace CreditApplication.Test
     {
         [Theory]
         [InlineData(1, 5, 15, 6)]
+        [InlineData(1, 5, 15, 9999)]
         public void ExceptionTest(decimal requestAmount, int portion, int quantityDays, int creditType)
         {
             var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), (CreditType)creditType);

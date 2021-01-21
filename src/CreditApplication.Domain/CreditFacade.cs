@@ -1,6 +1,7 @@
 ﻿using CreditApplication.Domain.Contracts;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace CreditApplication.Domain
 {
@@ -22,6 +23,20 @@ namespace CreditApplication.Domain
                     throw new ArgumentException($"{nameof(conditions.CreditType)} não é válido!");
                 }
 
+                var type = typeof(Credit).Assembly
+                                    .GetTypes()
+                                    .FirstOrDefault(t => t.IsSubclassOf(typeof(Credit))
+                                                         && t.IsNotPublic
+                                                         && !t.IsAbstract
+                                                         && conditions.CreditType
+                                                                     .ToString()
+                                                                     .Equals(t.Name));
+
+                if (type is null)
+                {
+                    throw new ArgumentException($"{nameof(conditions.CreditType)} não é compativel com uma classe de mesmo nome que herda de Credit!");
+                }
+
                 return Credit.GetInstance(Proposal.SetProposal(conditions));
             }
             catch (ArgumentException ex)
@@ -34,6 +49,19 @@ namespace CreditApplication.Domain
                 Debug.WriteLine(ex);
                 throw;
             }
+        }
+
+        internal static Credit GetCredit(CreditType creditType)
+        {
+            var type = typeof(Credit).Assembly
+                                    .GetTypes()
+                                    .FirstOrDefault(t =>
+                                        t.IsSubclassOf(typeof(Credit))
+                                        && t.IsNotPublic
+                                        && !t.IsAbstract
+                                        && creditType.ToString().Equals(t.Name));
+
+            return (Credit)Activator.CreateInstance(type);
         }
     }
 }
