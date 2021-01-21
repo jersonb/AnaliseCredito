@@ -8,10 +8,11 @@
 
     public enum CreditType
     {
-        Direct,
-        Business,
-        Payroll,
-        Personal,
-        RealEstate
+        Direct = 1,
+        Business = 2,
+        Payroll = 3,
+        Personal = 4,
+        RealEstate = 5,
+        Erro =9999
     }
 }

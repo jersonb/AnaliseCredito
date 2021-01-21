@@ -8,6 +8,16 @@ namespace CreditApplication.Test
     public class CreditsTest
     {
         [Theory]
+        [InlineData(1, 5, 15, 6)]
+        [InlineData(1, 5, 15, 9999)]
+        public void ExceptionTest(decimal requestAmount, int portion, int quantityDays, int creditType)
+        {
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), (CreditType)creditType);
+
+            Assert.Throws<ArgumentException>(() => condition.GetCredit());
+        }
+
+        [Theory]
         [InlineData(1, 5, 15)]
         [InlineData(1_000_000, 72, 39)]
         [InlineData(1_000_000, 72, 40)]

@@ -1,5 +1,6 @@
 ﻿using CreditApplication.Domain.Contracts;
 using CreditApplication.Domain.Property;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,13 +22,11 @@ namespace CreditApplication.Domain
 
         public IEnumerable<string> Notifications { get; private set; } = new List<string>();
 
-        internal static T GetInstance<T>(Proposal proposal) where T : Credit, new()
+        internal static ICredit GetInstance(Proposal proposal)
         {
-            var credit = new T
-            {
-                Proposal = proposal
-            };
+            var credit = CreditFacade.GetCredit(proposal.CreditType);
 
+            credit.Proposal = proposal;
             credit.Validate();
             credit.SetInterest(RATE_TAX_DEFAULT);
             credit.SetAmount();
@@ -49,7 +48,7 @@ namespace CreditApplication.Domain
 
         protected virtual void AddNotification(string notification)
         {
-            Notifications = Notifications.Append(notification); 
+            Notifications = Notifications.Append(notification);
         }
 
         protected virtual void Validate()
