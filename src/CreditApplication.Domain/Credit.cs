@@ -22,9 +22,9 @@ namespace CreditApplication.Domain
 
         public IEnumerable<string> Notifications { get; private set; } = new List<string>();
 
-        internal static ICredit GetInstance(Proposal proposal)
+        internal static ICredit GetInstance(Proposal proposal, Credit type)
         {
-            var credit = CreditFacade.GetCredit(proposal.CreditType);
+            var credit = type;
 
             credit.Proposal = proposal;
             credit.Validate();

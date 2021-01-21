@@ -15,29 +15,31 @@ namespace CreditApplication.Domain
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="Exception"></exception>
         public static ICredit GetCredit(this IProposal conditions)
+            => Credit.GetInstance(Proposal.SetProposal(conditions), GetCredit(conditions.CreditType));
+
+        private static Credit GetCredit(CreditType creditType)
         {
             try
             {
-                if (!Enum.IsDefined(conditions.CreditType))
+                if (!Enum.IsDefined(creditType))
                 {
-                    throw new ArgumentException($"{nameof(conditions.CreditType)} não é válido!");
+                    throw new ArgumentException($"{nameof(creditType)} não é válido!");
                 }
 
                 var type = typeof(Credit).Assembly
-                                    .GetTypes()
-                                    .FirstOrDefault(t => t.IsSubclassOf(typeof(Credit))
-                                                         && t.IsNotPublic
-                                                         && !t.IsAbstract
-                                                         && conditions.CreditType
-                                                                     .ToString()
-                                                                     .Equals(t.Name));
+                                        .GetTypes()
+                                        .FirstOrDefault(t =>
+                                            t.IsSubclassOf(typeof(Credit))
+                                            && t.IsNotPublic
+                                            && !t.IsAbstract
+                                            && creditType.ToString().Equals(t.Name));
 
                 if (type is null)
                 {
-                    throw new ArgumentException($"{nameof(conditions.CreditType)} não é compativel com uma classe de mesmo nome que herda de Credit!");
+                    throw new ArgumentException($"{nameof(creditType)} não é compativel com uma classe de mesmo nome que herda de Credit!");
                 }
 
-                return Credit.GetInstance(Proposal.SetProposal(conditions));
+                return (Credit)Activator.CreateInstance(type);
             }
             catch (ArgumentException ex)
             {
@@ -49,19 +51,6 @@ namespace CreditApplication.Domain
                 Debug.WriteLine(ex);
                 throw;
             }
-        }
-
-        internal static Credit GetCredit(CreditType creditType)
-        {
-            var type = typeof(Credit).Assembly
-                                    .GetTypes()
-                                    .FirstOrDefault(t =>
-                                        t.IsSubclassOf(typeof(Credit))
-                                        && t.IsNotPublic
-                                        && !t.IsAbstract
-                                        && creditType.ToString().Equals(t.Name));
-
-            return (Credit)Activator.CreateInstance(type);
         }
     }
 }

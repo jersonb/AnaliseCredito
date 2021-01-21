@@ -9,14 +9,12 @@ namespace CreditApplication.Domain
         public RequestedAmount RequestedAmount { get; }
         public Portion Portion { get; }
         public FirstPayment FirstPayment { get; }
-        public CreditType CreditType { get; }
 
         private Proposal(IProposal proposal)
         {
             RequestedAmount = proposal.RequestedAmount;
             Portion = proposal.Portion;
             FirstPayment = proposal.FirstPayment;
-            CreditType = proposal.CreditType;
 
             Validate();
         }
