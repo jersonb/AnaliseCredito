@@ -1,26 +1,35 @@
 ﻿using CreditApplication.Domain.Contracts;
-using Flunt.Validations;
+using Flunt.Notifications;
 
 namespace CreditApplication.Domain.Property
 {
-    internal struct Proposal
+    internal class Proposal : Notifiable
     {
         public RequestedAmount RequestedAmount { get; }
         public Portion Portion { get; }
         public FirstPayment FirstPayment { get; }
-
-        public Contract Contract {get;}
 
         private Proposal(IProposal proposal)
         {
             RequestedAmount = proposal.RequestedAmount;
             Portion = proposal.Portion;
             FirstPayment = proposal.FirstPayment;
-            Contract = RequestedAmount.Contract;
-
+            Validate();
         }
 
         internal static Proposal GetProposal(IProposal proposal)
             => new Proposal(proposal);
+
+        private void Validate()
+        {
+            foreach (var notification in RequestedAmount.Contract.Notifications)
+                AddNotification(notification);
+
+            foreach (var notification in Portion.Contract.Notifications)
+                AddNotification(notification);
+
+            foreach (var notification in FirstPayment.Contract.Notifications)
+                AddNotification(notification);
+        }
     }
 }

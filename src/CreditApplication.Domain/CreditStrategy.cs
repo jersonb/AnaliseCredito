@@ -4,7 +4,7 @@ using CreditApplication.Domain.Property;
 
 namespace CreditApplication.Domain
 {
-    public static class CreditFactory
+    public static class CreditStrategy
     {
         public static ICredit GetCredit(this IProposal conditions)
         => conditions.CreditType switch

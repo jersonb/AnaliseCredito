@@ -11,16 +11,14 @@ namespace CreditApplication.Domain.Credits
         protected override void Validate()
         {
             base.Validate();
-            
             var contract = new Contract()
-                            .IsGreaterOrEqualsThan(Proposal.RequestedAmount.Value 
+                            .IsGreaterOrEqualsThan(Proposal.RequestedAmount.Value
                             , REQUEST_MIN
                             , nameof(Business)
                             , $"Valor solicitado não pode ser menor que {REQUEST_MIN:C2}");
-         
-            if (contract.Invalid)
-                foreach(var notification in contract.Notifications)
-                    AddNotification(notification);
+
+            foreach (var notification in contract.Notifications)
+                AddNotification(notification.Message);
         }
     }
 }

@@ -7,6 +7,6 @@ namespace CreditApplication.Domain.Contracts
         decimal Amount { get; }
         decimal Interest { get; }
         bool Aproved { get; }
-        List<string> Notifications { get; }
+        IEnumerable<string> Notifications { get; }
     }
 }

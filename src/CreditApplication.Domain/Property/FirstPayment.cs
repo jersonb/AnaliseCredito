@@ -16,7 +16,7 @@ namespace CreditApplication.Domain.Property
             Contract = new Contract()
                             .IsBetween(value.Date
                                     , DateTime.Now.AddDays(QUANTITY_DAYS_MIN).Date
-                                    , DateTime.Now.AddDays(QUANTITY_DAYS_MAX+1).Date
+                                    , DateTime.Now.AddDays(QUANTITY_DAYS_MAX).Date
                                     , nameof(FirstPayment)
                                     ,_message)
             ;

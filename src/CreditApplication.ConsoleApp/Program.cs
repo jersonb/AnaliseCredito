@@ -27,7 +27,10 @@ namespace CreditApplication.ConsoleApp
                 Console.WriteLine($"Total a pagar: {credit.Amount:C2}, Total dos Juros: {credit.Interest}");
                 Console.WriteLine("Notificações");
 
-                credit.Notifications.ForEach(notification => Console.WriteLine(notification));
+                foreach (var message in credit.Notifications)
+                {
+                    Console.WriteLine(message);
+                }
 
                 Console.WriteLine("\n");
             });

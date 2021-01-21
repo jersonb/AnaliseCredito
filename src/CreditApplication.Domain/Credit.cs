@@ -1,12 +1,11 @@
 ﻿using CreditApplication.Domain.Contracts;
 using CreditApplication.Domain.Property;
-using Flunt.Notifications;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CreditApplication.Domain
 {
-    internal abstract class Credit : Notifiable, ICredit
+    internal abstract class Credit : ICredit
     {
         private const RateTax RATE_TAX_DEFAULT = RateTax.Month;
 
@@ -20,7 +19,7 @@ namespace CreditApplication.Domain
 
         public bool Aproved => !Notifications.Any();
 
-        public List<string> Notifications { get; private set; }
+        public IEnumerable<string> Notifications { get; private set; } = new List<string>();
 
         internal static T GetInstance<T>(Proposal proposal) where T : Credit, new()
         {
@@ -48,28 +47,14 @@ namespace CreditApplication.Domain
             };
         }
 
-        //protected void AddNotification(Notification notification)
-        //  => Notifications.Add(notification.Message);
+        protected virtual void AddNotification(string notification)
+        {
+            Notifications = Notifications.Append(notification); 
+        }
 
         protected virtual void Validate()
         {
-            Notifications = new List<string>();
-
-            if (Proposal.RequestedAmount.Contract.Invalid)
-                foreach (var notification in Proposal.RequestedAmount.Contract.Notifications)
-                    AddNotification(notification);
-
-            if (Proposal.Portion.Contract.Invalid)
-                foreach (var notification in Proposal.Portion.Contract.Notifications)
-                    AddNotification(notification);
-
-            if (Proposal.FirstPayment.Contract.Invalid)
-                foreach(var notification in Proposal.FirstPayment.Contract.Notifications)
-                    AddNotification(notification);
-
-            if (Tax.Contract.Invalid)
-                foreach (var notification in Tax.Contract.Notifications)
-                    AddNotification(notification);
+            Notifications = Notifications.Concat(Proposal.Notifications.Select(n => n.Message));
         }
     }
 }
