@@ -4,9 +4,9 @@ using System;
 
 namespace CreditApplication.ConsoleApp.Conditions
 {
-    public abstract class ConditionRequest : IProposal
+    public abstract class ConditRequest : IProposal
     {
-        protected ConditionRequest(decimal requestedAmount, int portion, DateTime firstPayment)
+        protected ConditRequest(decimal requestedAmount, int portion, DateTime firstPayment)
         {
             RequestedAmount = requestedAmount;
             Portion = portion;

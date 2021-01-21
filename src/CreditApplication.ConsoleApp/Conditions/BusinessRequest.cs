@@ -3,7 +3,7 @@ using System;
 
 namespace CreditApplication.ConsoleApp.Conditions
 {
-    public class BusinessRequest : ConditionRequest
+    public class BusinessRequest : ConditRequest
     {
         public BusinessRequest(decimal requestedAmount, int portion, DateTime firstPayment) : base(requestedAmount, portion, firstPayment)
         {

@@ -19,7 +19,7 @@ namespace CreditApplication.Domain
 
         public bool Aproved => !Notifications.Any();
 
-        public List<string> Notifications { get; private set; }
+        public IEnumerable<string> Notifications { get; private set; } = new List<string>();
 
         internal static T GetInstance<T>(Proposal proposal) where T : Credit, new()
         {
@@ -47,24 +47,14 @@ namespace CreditApplication.Domain
             };
         }
 
-        protected void AddNotification(string message)
-          => Notifications.Add(message);
+        protected virtual void AddNotification(string notification)
+        {
+            Notifications = Notifications.Append(notification); 
+        }
 
         protected virtual void Validate()
         {
-            Notifications = new List<string>();
-
-            if (!Proposal.RequestedAmount.IsValid)
-                AddNotification("Valor solicitado não pode ser maior que R$ 1.000.000,00 nem menor que R$ 1");
-
-            if (!Proposal.Portion.IsValid)
-                AddNotification("A quantidade de parcelas máximas é de 72x e a mínima é de 5x");
-
-            if (!Proposal.FirstPayment.IsValid)
-                AddNotification("A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)");
-
-            if (!Tax.IsValid)
-                AddNotification("Taxa Inválida");
+            Notifications = Notifications.Concat(Proposal.Notifications.Select(n => n.Message));
         }
     }
 }
