@@ -1,5 +1,4 @@
-﻿using CreditApplication.Domain;
-using CreditApplication.Domain.Contracts;
+﻿using CreditApplication.Domain.Contracts;
 using System;
 
 namespace CreditApplication.ConsoleApp.Conditions
@@ -19,6 +18,6 @@ namespace CreditApplication.ConsoleApp.Conditions
 
         public DateTime FirstPayment { get; }
 
-        abstract public CreditType CreditType { get; }
+        abstract public string CreditType { get; }
     }
 }

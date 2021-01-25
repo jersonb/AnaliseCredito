@@ -1,6 +1,5 @@
 ﻿using CreditApplication.Domain.Contracts;
 using CreditApplication.Domain.Property;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +7,12 @@ namespace CreditApplication.Domain
 {
     internal abstract class Credit : ICredit
     {
+        protected Credit(IProposal proposal)
+        {
+            Proposal = Proposal.SetProposal(proposal);
+            Factory();
+        }
+
         private const RateTax RATE_TAX_DEFAULT = RateTax.Month;
 
         protected abstract Tax Tax { get; }
@@ -22,16 +27,11 @@ namespace CreditApplication.Domain
 
         public IEnumerable<string> Notifications { get; private set; } = new List<string>();
 
-        internal static ICredit GetInstance(Proposal proposal, Credit type)
+        private void Factory()
         {
-            var credit = type;
-
-            credit.Proposal = proposal;
-            credit.Validate();
-            credit.SetInterest(RATE_TAX_DEFAULT);
-            credit.SetAmount();
-
-            return credit;
+            Validate();
+            SetInterest(RATE_TAX_DEFAULT);
+            SetAmount();
         }
 
         private void SetAmount()
