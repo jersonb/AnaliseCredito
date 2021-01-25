@@ -1,5 +1,4 @@
-﻿using CreditApplication.Domain;
-using System;
+﻿using System;
 
 namespace CreditApplication.ConsoleApp.Conditions
 {
@@ -9,7 +8,6 @@ namespace CreditApplication.ConsoleApp.Conditions
         {
         }
 
-        public override CreditType CreditType
-            => CreditType.Business;
+        public override string CreditType => "Business";
     }
 }

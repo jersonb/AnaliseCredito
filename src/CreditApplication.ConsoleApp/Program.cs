@@ -1,5 +1,4 @@
 ﻿using CreditApplication.ConsoleApp.Conditions;
-using CreditApplication.Domain;
 using CreditApplication.Domain.Contracts;
 using System;
 using System.Collections.Generic;
@@ -10,10 +9,19 @@ namespace CreditApplication.ConsoleApp
     {
         private static void Main(string[] _)
         {
+            int i = 0;
+            Console.WriteLine("Insira o número do tipo de crédito que deseja");
+
+            foreach (var item in IProposal.OptionsCredit)
+            {
+                Console.WriteLine($"{i++} - {item}");
+            }
+            var selectedCredit = Console.ReadLine();
+
             var date = DateTime.Now.AddDays(30);
 
             var conditions = new List<IProposal>
-            {
+            {   new OtherCreditRequest(15_000, 10, date, int.Parse(selectedCredit)),
                 new BusinessRequest(15_000, 10, date),
                 new BusinessRequest(13_000, 10, date),
                 new DirectRequest(10_000, 10, date),
@@ -22,7 +30,7 @@ namespace CreditApplication.ConsoleApp
 
             conditions.ForEach(condition =>
             {
-                var credit = condition.GetCredit();
+                var credit = IProposal.GetCredit(condition);
                 Console.WriteLine("Situação: {0}", credit.Aproved ? "Aprovado" : "Reprovado");
                 Console.WriteLine($"Total a pagar: {credit.Amount:C2}, Total dos Juros: {credit.Interest}");
                 Console.WriteLine("Notificações");

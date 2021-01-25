@@ -1,4 +1,4 @@
-using CreditApplication.Domain;
+using CreditApplication.Domain.Contracts;
 using CreditApplication.Test.Conditions;
 using System;
 using Xunit;
@@ -12,7 +12,7 @@ namespace CreditApplication.Test
         [InlineData(1, 5, 15, 9999)]
         public void ExceptionTest(decimal requestAmount, int portion, int quantityDays, int creditType)
         {
-            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), (CreditType)creditType);
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), IProposal.GetOptionsCredit(creditType));
 
             Assert.Throws<ArgumentException>(() => condition.GetCredit());
         }
@@ -29,7 +29,7 @@ namespace CreditApplication.Test
         [InlineData(1_000, 10, 14, "A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)")]
         public void DirectIsValidTest(decimal requestAmount, int portion, int quantityDays, string message = null)
         {
-            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), CreditType.Direct);
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), "Direct");
             var direct = condition.GetCredit();
 
             if (direct.Aproved)
@@ -55,7 +55,7 @@ namespace CreditApplication.Test
         [InlineData(20_000, 10, 41, "A data do primeiro vencimento sempre será no mínimo D+15 (Dia atual + 15 dias), e no máximo, D+40 (Dia atual + 40 dias)")]
         public void BusinessIsValidTest(decimal requestAmount, int portion, int quantityDays, string message = null)
         {
-            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), CreditType.Business);
+            var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), "Business");
             var business = condition.GetCredit();
             if (business.Aproved)
             {
@@ -74,8 +74,8 @@ namespace CreditApplication.Test
         public void RealEstateIsValidTest(decimal requestAmount, int portion)
         {
             var date = DateTime.Now.AddDays(15);
-            var payroll = new Condition(requestAmount, portion, date, CreditType.Payroll).GetCredit();
-            var realEstate = new Condition(requestAmount, portion, date, CreditType.RealEstate).GetCredit();
+            var payroll = new Condition(requestAmount, portion, date, "Payroll").GetCredit();
+            var realEstate = new Condition(requestAmount, portion, date, "RealEstate").GetCredit();
             Assert.True(payroll.Amount > realEstate.Amount);
         }
     }

@@ -1,4 +1,5 @@
-﻿using CreditApplication.Domain.Property;
+﻿using CreditApplication.Domain.Contracts;
+using CreditApplication.Domain.Property;
 using Flunt.Validations;
 
 namespace CreditApplication.Domain.Credits
@@ -7,6 +8,10 @@ namespace CreditApplication.Domain.Credits
     {
         protected override Tax Tax => 0.05M;
         private const int REQUEST_MIN = 15_000;
+
+        public Business(IProposal proposal) : base(proposal)
+        {
+        }
 
         protected override void Validate()
         {
