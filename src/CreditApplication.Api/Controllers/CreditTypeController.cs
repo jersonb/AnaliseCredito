@@ -1,6 +1,6 @@
 ﻿using CreditApplication.Domain.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System.Net;
 
 namespace CreditApplication.Api.Controllers
 {
@@ -8,18 +8,47 @@ namespace CreditApplication.Api.Controllers
     [ApiController]
     public class CreditTypeController : ControllerBase
     {
-        // GET: api/<CreditController>
         [HttpGet]
-        public IEnumerable<string> GetTypeCredits()
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.BadRequest)]
+        public ActionResult<Result> GetTypeCredits()
         {
-            return IProposal.OptionsCredit;
+            try
+            {
+                var types = IProposal.OptionsCredit;
+
+                if (types is null)
+                {
+                    return NotFound(new NotFound(null));
+                }
+                return Ok(new Sucess(types));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
-        // GET api/<CreditController>/5
         [HttpGet("{id}")]
-        public string GetTypeCreditById(int id)
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.BadRequest)]
+        public ActionResult<Result> GetTypeCreditById(int id)
         {
-            return IProposal.GetOptionsCredit(id);
+            try
+            {
+                var type = IProposal.GetOptionsCredit(id);
+                if (type is null)
+                {
+                    return NotFound(new NotFound(id));
+                }
+                return Ok(new Sucess(type));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

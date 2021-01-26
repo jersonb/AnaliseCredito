@@ -2,10 +2,7 @@
 using CreditApplication.Domain.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Net;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CreditApplication.Api.Controllers
 {
@@ -23,10 +20,10 @@ namespace CreditApplication.Api.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(typeof(DirectRequest), (int)HttpStatusCode.Created)]
-        [ProducesResponseType(typeof(IEnumerable<string>), (int)HttpStatusCode.UnprocessableEntity)]
-        [ProducesResponseType(500)]
-        public IActionResult Post([FromBody] DirectRequest proposal)
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.Created)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.UnprocessableEntity)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.BadRequest)]
+        public ActionResult<Result> Post([FromBody] DirectRequest proposal)
         {
             try
             {
@@ -36,12 +33,16 @@ namespace CreditApplication.Api.Controllers
 
                 if (!credit.Aproved)
                 {
-                    return UnprocessableEntity(credit);
+                    return UnprocessableEntity(new Reproved(credit.Notifications));
                 }
 
                 var id = _persistence.Save(proposal, credit);
 
-                return Created($"api/credit/{id}", credit);
+                return Created($"api/credit/{id}", new Sucess(new { id, proposal, credit }));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new Problem(ex.Message));
             }
             catch
             {
@@ -50,7 +51,10 @@ namespace CreditApplication.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(string id)
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public ActionResult<Result> Get(string id)
         {
             try
             {
@@ -58,9 +62,9 @@ namespace CreditApplication.Api.Controllers
 
                 if (credit is null)
                 {
-                    NotFound(id);
+                    NotFound(new NotFound(id));
                 }
-                return Ok(credit);
+                return Ok(new Sucess(new { credit }));
             }
             catch
             {
