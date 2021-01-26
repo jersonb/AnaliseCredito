@@ -22,14 +22,5 @@ namespace CreditApplication.Domain.Contracts
                                               t.IsSubclassOf(typeof(Credit))
                                               && t.IsNotPublic
                                               && !t.IsAbstract);
-
-        public static ICredit GetCredit(IProposal conditions)
-        {
-            var type = TypesCredit.FirstOrDefault(c => c.Name.Equals(conditions.CreditType));
-
-            _ = type ?? throw new ArgumentException($"{conditions.CreditType} não é compativel com uma classe de mesmo nome que herda de Credit!");
-
-            return (ICredit)Activator.CreateInstance(type, conditions);
-        }
     }
 }

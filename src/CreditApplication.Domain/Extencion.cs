@@ -17,12 +17,19 @@ namespace CreditApplication
         {
             var type = IProposal.TypesCredit.FirstOrDefault(c => c.Name.Equals(conditions.CreditType));
 
-            if (type is null)
-            {
-                throw new ArgumentException($"{nameof(conditions.CreditType)} não é compativel com uma classe de mesmo nome que herda de Credit!");
-            }
+            _ = type ?? throw new ArgumentException($"{conditions.CreditType} não é compativel com uma classe de mesmo nome que herda de Credit!");
 
             return (ICredit)Activator.CreateInstance(type, conditions);
+        }
+
+        public static CreditDataObject ToViewObject(this ICredit credit)
+        {
+            return (CreditDataObject)Activator.CreateInstance(typeof(CreditDataObject), credit);
+        }
+
+        public static ProposalDataObject ToViewObject(this IProposal proposal)
+        {
+            return (ProposalDataObject)Activator.CreateInstance(typeof(ProposalDataObject), proposal);
         }
     }
 }

@@ -1,9 +1,8 @@
-﻿using CreditApplication.Domain.Contracts;
-using System;
+﻿using System;
 
-namespace CreditApplication.Test.Conditions
+namespace CreditApplication.Test
 {
-    public class Condition : IProposal
+    public class Condition : ConditionRequest
     {
         public Condition(decimal requestedAmount, int portion, DateTime firstPayment, string creditType)
         {
@@ -13,12 +12,6 @@ namespace CreditApplication.Test.Conditions
             CreditType = creditType;
         }
 
-        public decimal RequestedAmount { get; }
-
-        public int Portion { get; }
-
-        public DateTime FirstPayment { get; }
-
-        public string CreditType { get; }
+        public override string CreditType { get; }
     }
 }

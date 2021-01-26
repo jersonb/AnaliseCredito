@@ -1,5 +1,4 @@
 using CreditApplication.Domain.Contracts;
-using CreditApplication.Test.Conditions;
 using System;
 using Xunit;
 
