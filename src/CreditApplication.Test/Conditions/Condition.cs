@@ -1,7 +1,7 @@
 ﻿using CreditApplication.Domain.Contracts;
 using System;
 
-namespace CreditApplication.Test.Conditions
+namespace CreditApplication.Test
 {
     public class Condition : IProposal
     {

@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.Domain", "CreditApplication.Domain\CreditApplication.Domain.csproj", "{8EC2B60A-DB71-4FFD-B300-82DBA5B8CA45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.Domain", "CreditApplication.Domain\CreditApplication.Domain.csproj", "{8EC2B60A-DB71-4FFD-B300-82DBA5B8CA45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.Test", "CreditApplication.Test\CreditApplication.Test.csproj", "{28013003-1804-4860-B404-48D82D2A0DEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.Test", "CreditApplication.Test\CreditApplication.Test.csproj", "{28013003-1804-4860-B404-48D82D2A0DEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.ConsoleApp", "CreditApplication.ConsoleApp\CreditApplication.ConsoleApp.csproj", "{6DCF13F8-29E3-4BA4-A2FB-AD67DCD7BD28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.ConsoleApp", "CreditApplication.ConsoleApp\CreditApplication.ConsoleApp.csproj", "{6DCF13F8-29E3-4BA4-A2FB-AD67DCD7BD28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.Repository", "CreditApplication.Repository\CreditApplication.Repository.csproj", "{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{6DCF13F8-29E3-4BA4-A2FB-AD67DCD7BD28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DCF13F8-29E3-4BA4-A2FB-AD67DCD7BD28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DCF13F8-29E3-4BA4-A2FB-AD67DCD7BD28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

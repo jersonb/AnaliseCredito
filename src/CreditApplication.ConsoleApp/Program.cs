@@ -30,7 +30,7 @@ namespace CreditApplication.ConsoleApp
 
             conditions.ForEach(condition =>
             {
-                var credit = IProposal.GetCredit(condition);
+                var credit = condition.GetCredit();
                 Console.WriteLine("Situação: {0}", credit.Aproved ? "Aprovado" : "Reprovado");
                 Console.WriteLine($"Total a pagar: {credit.Amount:C2}, Total dos Juros: {credit.Interest}");
                 Console.WriteLine("Notificações");
