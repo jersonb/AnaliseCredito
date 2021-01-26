@@ -12,8 +12,8 @@ namespace CreditApplication.Test
             {
                 var condition = new Condition(1, 5, DateTime.Now.AddDays(15), "Direct");
 
-                var (credit, proposal) = condition.ToViewObject();
-
+                var proposal = condition.ToViewObject();
+                var credit = proposal.GetCredit().ToViewObject();
                 Assert.NotNull(credit);
                 Assert.NotNull(proposal);
             }

@@ -2,8 +2,8 @@
 {
     public interface IPersistence
     {
-        void Log(ProposalDataObject proposal);
+        void Log(IProposal proposal);
 
-        string Save(ProposalDataObject proposal, CreditDataObject credit);
+        string Save(IProposal proposal, ICredit credit);
     }
 }

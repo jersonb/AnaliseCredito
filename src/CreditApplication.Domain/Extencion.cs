@@ -27,11 +27,9 @@ namespace CreditApplication
             return (CreditDataObject)Activator.CreateInstance(typeof(CreditDataObject), credit);
         }
 
-        public static (CreditDataObject credit, ProposalDataObject proposal) ToViewObject(this IProposal proposal)
+        public static ProposalDataObject ToViewObject(this IProposal proposal)
         {
-            var vProposal = (ProposalDataObject)Activator.CreateInstance(typeof(ProposalDataObject), proposal);
-
-            return (vProposal.GetCredit().ToViewObject(), vProposal);
+            return (ProposalDataObject)Activator.CreateInstance(typeof(ProposalDataObject), proposal);
         }
     }
 }

@@ -8,13 +8,13 @@ namespace CreditApplication.Repository
         {
         }
 
-        public void Log(ProposalDataObject proposal)
+        public void Log(IProposal proposal)
         {
             var toSave = new DataObject(proposal);
             _collectionLog.InsertOne(toSave);
         }
 
-        public string Save(ProposalDataObject proposal, CreditDataObject credit)
+        public string Save(IProposal proposal, ICredit credit)
         {
             var toSave = new DataObject(proposal, credit);
             _collection.InsertOne(toSave);

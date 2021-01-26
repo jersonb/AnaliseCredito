@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using CreditApplication.Domain.Contracts;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace CreditApplication.Repository
@@ -6,10 +7,10 @@ namespace CreditApplication.Repository
     [BsonIgnoreExtraElements]
     public class DataObject
     {
-        public DataObject(ProposalDataObject proposal, CreditDataObject credit = null)
+        public DataObject(IProposal proposal, ICredit credit = null)
         {
-            Proposal = proposal;
-            Credit = credit;
+            Proposal = proposal.ToViewObject();
+            Credit = credit?.ToViewObject();
         }
 
         [BsonId]

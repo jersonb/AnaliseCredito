@@ -27,9 +27,9 @@ namespace CreditApplication.Test
             {
                 var condition = new Condition(1, 5, DateTime.Now.AddDays(15), "Direct");
                 var persistence = new Persistence(_settings);
-                var proposal = condition.ToViewObject().proposal;
-                persistence.Log(proposal);
-                Assert.NotNull(proposal);
+
+                persistence.Log(condition);
+                Assert.NotNull(condition);
             }
             catch (Exception ex)
             {
@@ -46,7 +46,11 @@ namespace CreditApplication.Test
             {
                 var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), "Business");
                 var persistence = new Persistence(_settings);
-                var (credit, proposal) = condition.ToViewObject();
+
+                var proposal = condition.ToViewObject();
+
+                var credit = proposal.GetCredit().ToViewObject();
+
                 var id = persistence.Save(proposal, credit);
                 Assert.NotNull(id);
             }
