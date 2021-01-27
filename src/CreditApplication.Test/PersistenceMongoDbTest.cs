@@ -1,4 +1,5 @@
-﻿using CreditApplication.Repository;
+﻿using CreditApplication.Domain.Contracts;
+using CreditApplication.Repository;
 using System;
 using System.Linq;
 using Xunit;
@@ -7,17 +8,20 @@ namespace CreditApplication.Test
 {
     public class PersistenceMongoDbTest
     {
-        private readonly ICreditMongoSettings _settings;
+        private readonly IPersistence _persistence;
+        private readonly IRead _read;
 
         public PersistenceMongoDbTest()
         {
-            _settings = new CreditMongoSettings
+            var settings = new CreditMongoSettings
             {
                 ConnectionString = "mongodb://jersonb:MongoDB2019@localhost:27017/?authSource=admin&readPreference=primary&ssl=false",
                 NameCollectionLog = "logs",
                 NameDatabaseCredit = "Credit",
                 NameCollectionCredit = "credits"
             };
+            _persistence = new Persistence(settings);
+            _read = new ReadDataBase(settings);
         }
 
         [Fact]
@@ -26,9 +30,8 @@ namespace CreditApplication.Test
             try
             {
                 var condition = new Condition(1, 5, DateTime.Now.AddDays(15), "Direct");
-                var persistence = new Persistence(_settings);
 
-                persistence.Log(condition);
+                _persistence.Log(condition);
                 Assert.NotNull(condition);
             }
             catch (Exception ex)
@@ -45,13 +48,12 @@ namespace CreditApplication.Test
             try
             {
                 var condition = new Condition(requestAmount, portion, DateTime.Now.AddDays(quantityDays), "Business");
-                var persistence = new Persistence(_settings);
 
                 var proposal = condition.ToViewObject();
 
                 var credit = proposal.GetCredit().ToViewObject();
 
-                var id = persistence.Save(proposal, credit);
+                var id = _persistence.Save(proposal, credit);
                 Assert.NotNull(id);
             }
             catch (Exception ex)
@@ -65,12 +67,12 @@ namespace CreditApplication.Test
         {
             try
             {
-                var read = new ReadDataBase(_settings);
-                var all = read.GetAllId();
-                var allIdAproved = read.GetIdAproved();
-                var allIdReproved = read.GetIdReproved();
-                var aproved = read.GetCredit(allIdAproved.ElementAt(0));
-                var reproved = read.GetCredit(allIdReproved.ElementAt(0));
+               
+                var all = _read.GetAllId();
+                var allIdAproved = _read.GetIdAproved();
+                var allIdReproved = _read.GetIdReproved();
+                var aproved = _read.GetCredit(allIdAproved.ElementAt(0));
+                var reproved = _read.GetCredit(allIdReproved.ElementAt(0));
 
                 Assert.NotEmpty(all);
                 Assert.NotEmpty(allIdAproved);

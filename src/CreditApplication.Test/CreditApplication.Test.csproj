@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CreditApplication.Domain\CreditApplication.Domain.csproj" />
+    <ProjectReference Include="..\CreditApplication.RepositorySql\CreditApplication.RepositorySql.csproj" />
     <ProjectReference Include="..\CreditApplication.Repository\CreditApplication.Repository.csproj" />
   </ItemGroup>
 
