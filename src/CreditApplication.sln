@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.ConsoleAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.Repository", "CreditApplication.Repository\CreditApplication.Repository.csproj", "{B26E7106-AB92-40F7-B59B-188A7C8FF3B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.Api", "CreditApplication.Api\CreditApplication.Api.csproj", "{5934503C-4A95-4A63-8EBF-5B33CA08B2A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreditApplication.Api", "CreditApplication.Api\CreditApplication.Api.csproj", "{5934503C-4A95-4A63-8EBF-5B33CA08B2A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreditApplication.RepositorySql", "CreditApplication.RepositorySql\CreditApplication.RepositorySql.csproj", "{6665EB21-C562-4880-BABB-65774A9D93FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{5934503C-4A95-4A63-8EBF-5B33CA08B2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5934503C-4A95-4A63-8EBF-5B33CA08B2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5934503C-4A95-4A63-8EBF-5B33CA08B2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6665EB21-C562-4880-BABB-65774A9D93FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6665EB21-C562-4880-BABB-65774A9D93FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6665EB21-C562-4880-BABB-65774A9D93FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6665EB21-C562-4880-BABB-65774A9D93FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
